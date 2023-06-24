@@ -185,7 +185,7 @@ class BST:
         return current
 
     def in_order_traversal_and_save(self, filename):
-        with open(filename, 'w') as file: #edit this to take link of file
+        with open(filename, 'w') as file:
             self._in_order_traversal_and_save(self.root, file)
 
     def _in_order_traversal_and_save(self, root, file):
@@ -286,3 +286,126 @@ class CustomerList:
             previous = current
             current = current.next
         print("Customer does not exist.")
+
+class Order:
+    def __init__(self, pcode, ccode, quantity):
+        self.pcode = pcode
+        self.ccode = ccode
+        self.quantity = quantity
+
+class OrderList:
+    def __init__(self):
+        self.orders = []
+    
+    def input_order_data(self):
+        num_orders = int(input("Enter the number of orders: "))
+        for _ in range(num_orders):
+            pcode = input("Enter product code: ")
+            ccode = input("Enter customer code: ")
+            quantity = int(input("Enter quantity: "))
+            order = Order(pcode, ccode, quantity)
+            self.orders.append(order)
+
+    def display(self):
+        for order in self.orders:
+            print(f"Product Code: {order.pcode}")
+            print(f"Customer Code: {order.ccode}")
+            print(f"Quantity: {order.quantity}")
+            print("--------------------")
+
+    def sort_by_pcode(self):
+        self.orders.sort(key=lambda x: x.pcode)
+
+    def sort_by_ccode(self):
+        self.orders.sort(key=lambda x: x.ccode)
+
+def run_tests():
+    # Test Product and BST classes
+    bst = BST()
+
+    # Test inserting products
+    product1 = Product("P001", "Product 1", 10, 5, 9.99)
+    product2 = Product("P002", "Product 2", 5, 2, 19.99)
+    product3 = Product("P003", "Product 3", 8, 3, 14.99)
+
+    bst.insert(product1)
+    bst.insert(product2)
+    bst.insert(product3)
+
+    # Test in-order traversal
+    print("In-order traversal:")
+    bst.in_order_traversal()
+
+    # Test breadth-first traversal
+    print("Breadth-first traversal:")
+    bst.breadth_first_traversal()
+
+    # Test search for product by pcode
+    print("Search for product by pcode:")
+    bst.search_by_pcode("P002")
+
+    # Test delete product by pcode
+    print("Delete product by pcode:")
+    bst.delete_by_pcode("P002")
+    bst.in_order_traversal()
+
+    # Test balance tree
+    print("Balance tree:")
+    bst.balance_tree()
+    bst.in_order_traversal()
+
+    # Test counting number of products
+    print("Count number of products:", bst.count_products())
+
+    # Test CustomerList class
+    customer_list = CustomerList()
+
+    # Test appending customers
+    customer1 = Customer("C001", "Customer 1", "123456789")
+    customer2 = Customer("C002", "Customer 2", "987654321")
+
+    customer_list.append(customer1)
+    customer_list.append(customer2)
+
+    # Test display customer list
+    print("Display customer list:")
+    customer_list.display()
+
+    # Test search for customer by ccode
+    print("Search for customer by ccode:")
+    customer_list.search_by_ccode("C001")
+
+    # Test delete customer by ccode
+    print("Delete customer by ccode:")
+    customer_list.delete_by_ccode("C002")
+    customer_list.display()
+
+    # Test OrderList class
+    order_list = OrderList()
+
+    # Test input order data
+    order1 = Order("P001", "C001", 3)
+    order2 = Order("P002", "C002", 5)
+    order3 = Order("P003", "C001", 2)
+
+    order_list.orders.append(order1)
+    order_list.orders.append(order2)
+    order_list.orders.append(order3)
+
+    # Test display order list
+    print("Display order list:")
+    order_list.display()
+
+    # Test sorting order list by pcode
+    print("Sort order list by pcode:")
+    order_list.sort_by_pcode()
+    order_list.display()
+
+    # Test sorting order list by ccode
+    print("Sort order list by ccode:")
+    order_list.sort_by_ccode()
+    order_list.display()
+
+
+# Run the tests
+run_tests()
